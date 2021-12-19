@@ -1,19 +1,13 @@
 const knex = require('knex')
-const knexfile = require('./knexfile')
 
 let db_options = {
     client: 'pg',
-    connection: {
-        connectionString: process.env.DATABASE_URL,
-        sslmode: 'require',
-        ssl: {rejectUnauthorized: false}
-    }
+    connection: {connectionString: process.env.DATABASE_URL}
 }
 
 if (process.env.IS_HEROKU) {
-    console.log('IS_HEROKU wurde gefunden')
-    db_options.sslmode = 'require'
-    db_options.ssl = {rejectUnauthorized: false}
+    db_options.connection.sslmode = 'require'
+    db_options.connection.ssl = {rejectUnauthorized: false}
 }
 
 const db = knex(db_options)
