@@ -47,6 +47,18 @@ class UsersService {
     isPasswordCorrect(pw_hash, salt, password) {
         return pw_hash === pbkdf2.pbkdf2Sync(password, salt, iterations, keylen, digest).toString('hex')
     }
+
+    async getUserID(email) {
+        return await db
+            .select('id')
+            .from('users')
+            .where('email', email)
+            .then((users) => {
+                let user = users[0]
+                const {id} = user
+                return id
+            })
+    }
 }
 
 
