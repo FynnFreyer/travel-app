@@ -16,6 +16,12 @@ if (app.get('env') === 'production') {
 
 app.use(session(session_options))
 
+// allow cors
+app.use((req, res, next) => {
+    res.setHeader('Access-Control-Allow-Origin', '*')
+    next()
+})
+
 app.use(router)
 
 let port = process.env.PORT || 8080
