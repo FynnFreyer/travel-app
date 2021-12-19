@@ -1,17 +1,28 @@
 const db = require('../store/db')
 
-// TODO error handling and req validation?
-
 class TravelsService {
-    async createTravel(email, salt, pw_hash) {
-        // TODO validate email
-        const [id] = await db('users').insert({
-            email: email,
-            salt: salt,
-            pw_hash: pw_hash,
+    async createTravel(name, start, end, destination) {
+        const [id] = await db('travels').insert({
+            name: name,
+            start: start,
+            end: end,
+            destination: destination
         }).returning('id')
 
         return id
+    }
+
+    async associateTravel(user_id, travel_id) {
+        try {
+            await db('travels_made_by').insert({
+                user_id: user_id,
+                travel_id: travel_id
+            })
+            return true
+        } catch (e) {
+            console.log(e)
+            return false
+        }
     }
 }
 

@@ -5,8 +5,12 @@ class TravelsController {
     async createTravel(req, res) {
         console.log("received request: ", req.body)
         try {
-            const {email, salt, pw_hash} = req.body
-            const id = await travelsService.createTravel(email, salt, pw_hash)
+            const {name, start, end, destination} = req.body
+            // TODO check logged in and get real user_id
+            // req.session.email
+            const user_id = 1
+            const travel_id = await travelsService.createTravel(name, start, end, destination)
+            const success = await travelsService.associateTravel(user_id, travel_id)
             res.status(201).json(id)
             console.log("created user: ", id)
         } catch (e) {

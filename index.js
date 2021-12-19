@@ -10,6 +10,7 @@ const app = express()
 app.use(express.json())
 
 if (app.get('env') === 'production') {
+    console.log('SECURE ENV!!! WE ARE IN PRODUCTION')
     app.set('trust proxy', 1) // trust first proxy
     session_options.cookie.secure = true // serve secure cookies
 }
