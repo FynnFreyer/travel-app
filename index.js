@@ -1,7 +1,9 @@
 const express = require('express')
 const session = require('express-session')
 const session_options = require('./store/redis_session_options')
+const db = require('./store/db')
 const router = require('./routes')
+
 
 const app = express()
 
@@ -10,6 +12,8 @@ app.use(express.json())
 if (app.get('env') === 'production') {
     app.set('trust proxy', 1) // trust first proxy
     session_options.cookie.secure = true // serve secure cookies
+    db.connection.sslmode = 'require'
+    db.connection.ssl = {rejectUnauthorized: false}
 }
 
 app.use(session(session_options))

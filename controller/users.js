@@ -12,6 +12,7 @@ class UsersController {
             console.log("created user: ", id)
         } catch (e) {
             console.log(e)
+            // TODO remove error
             res.status(500).json(`failed to create user ${e}`)
             console.log("failed to create a user from request: ", req.body)
         }
@@ -33,6 +34,7 @@ class UsersController {
             }
         } catch (e) {
             console.log(e)
+            // TODO remove error
             res.status(500).json(`failed to authenticate user ${e}`)
             console.log("failed to authenticate a user from request: ", req.body)
         }
