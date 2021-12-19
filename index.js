@@ -1,6 +1,6 @@
 const express = require('express')
-
-const session = require('./store/auth')
+const session = require('express-session')
+const session_options = require('./store/redis_session_options')
 const router = require('./routes')
 
 const app = express()
@@ -9,10 +9,11 @@ app.use(express.json())
 
 if (app.get('env') === 'production') {
     app.set('trust proxy', 1) // trust first proxy
-    session.cookie.secure = true // serve secure cookies
+    session_options.cookie.secure = true // serve secure cookies
 }
 
-app.use(session)
+app.use(session(session_options))
+
 app.use(router)
 
 let port = process.env.PORT || 8080
@@ -20,6 +21,22 @@ app.listen(port, () => console.log(`App available on http://localhost:${port}`))
 
 
 /*
+const RedisStore = connectRedis(session)
+const redisClient = redis.createClient({
+    url: process.env.REDIS_URL
+})
+
+module.exports = session({
+    store: new RedisStore({client: redisClient}),
+    secret: process.env.SESSION_SECRET,
+    saveUninitialized: false,
+    cookie: {
+        secure: false, // gets set true later if in production
+        httpOnly: true,
+        maxAge: 1000 * 60 * 15 // set max age to 1000 * 60 * 15 ms == 15 min
+    }
+})
+
 const config: Knex.Config = {
     client: 'postgresql',
     connection: `${process.env.DATABASE_URL'}`,
