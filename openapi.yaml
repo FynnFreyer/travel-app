@@ -1,0 +1,41 @@
+openapi: 3.0.1
+info:
+  title: Travel App
+  version: 0.0.1
+  description: 'This is a semester project for the Webtechnologien course at HTW-Berlin. Made by Fynn Freyer and Younes Abdelwadoud'
+servers:
+  - url: https://htw-travel-app.herokuapp.com
+paths:
+  /travels:
+    post:
+      summary: Add a new travel
+      responses:
+        "200":
+          description: "OK"
+          content: {}
+        "401":
+          description: "Unauthorized"
+          content: {}
+    get:
+      summary: Get all travels
+      responses:
+        "200":
+          description: "OK"
+          content: {}
+        "401":
+          description: "Unauthorized"
+          content: {}
+    put:
+      summary: Update all travels
+      responses:
+        "200":
+          description: "OK"
+          content: {}
+        "401":
+          description: "Unauthorized"
+          content: {}
+  /users:
+    post:
+      summary: Add a new user
+    get:
+      summary: Get all users
