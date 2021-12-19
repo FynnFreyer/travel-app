@@ -30,7 +30,7 @@ module.exports = {
     client: 'postgresql',
     connection: {
       connectionString: process.env.DATABASE_URL,
-      ssl: true
+      sslmode: 'require'
     },
     pool: {
       min: 2,
