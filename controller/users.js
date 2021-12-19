@@ -1,18 +1,38 @@
 const usersService = require('../service/users')
+const crypto = require("crypto");
 // TODO error handling and req validation?
 
 class UsersController {
     async createUser(req, res) {
         console.log("received request: ", req.body)
         try {
-            const {email, salt, pw_hash} = req.body
-            const id = await usersService.createUser(email, salt, pw_hash)
+            const {email, password} = req.body
+            const id = await usersService.createUser(email, password)
             res.status(201).json(id)
             console.log("created user: ", id)
         } catch (e) {
             console.log(e)
-            res.status(500)
+            res.status(500).json("failed to create user")
             console.log("failed to create a user from request: ", req.body)
+        }
+    }
+
+    async login(req, res) {
+        console.log("received request: ", req.body)
+        try {
+            const {email, password} = req.body
+            const legit = await usersService.checkCredentials(email, password)
+            if (legit) {
+                res.session.clientId = crypto.randomBytes(2048).toString('hex')
+                res.status(201).json()
+                console.log("authenticated user: ", email)
+            } else {
+                res.status(401).json()
+            }
+        } catch (e) {
+            console.log(e)
+            res.status(500).json("failed to authenticate user")
+            console.log("failed to authenticate a user from request: ", req.body)
         }
     }
 }

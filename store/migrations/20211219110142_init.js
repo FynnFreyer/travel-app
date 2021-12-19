@@ -5,7 +5,7 @@ exports.up = function(knex) {
           table.increments('id')
           table.string('email', 254).notNullable().unique()
           table.string('salt', 128).notNullable()
-          table.string('pw_hash', 1024).notNullable()
+          table.string('pw_hash', 2048).notNullable()
           table.timestamps(true, true)
       })
       .createTable('travels', table => {

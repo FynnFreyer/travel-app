@@ -1,20 +1,20 @@
-const usersService = require('../service/users')
+const travelsService = require('../service/travels')
 // TODO error handling and req validation?
 
-class UsersController {
-    async createUser(req, res) {
+class TravelsController {
+    async createTravel(req, res) {
         console.log("received request: ", req.body)
         try {
             const {email, salt, pw_hash} = req.body
-            const id = await usersService.createUser(email, salt, pw_hash)
+            const id = await travelsService.createTravel(email, salt, pw_hash)
             res.status(201).json(id)
             console.log("created user: ", id)
         } catch (e) {
             console.log(e)
-            res.status(500)
-            console.log("failed to create a user from request: ", req.body)
+            res.status(500).json("failed to create travel")
+            console.log("failed to create a travel from request: ", req.body)
         }
     }
 }
 
-module.exports = new UsersController()
+module.exports = new TravelsController()
