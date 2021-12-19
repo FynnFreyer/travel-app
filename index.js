@@ -1,7 +1,6 @@
 const express = require('express')
 const session = require('express-session')
 const session_options = require('./store/session_options')
-const db = require('./store/db')
 const router = require('./routes')
 
 

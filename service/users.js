@@ -13,11 +13,13 @@ class UsersService {
         // TODO validate email
         const {salt, pw_hash} = this.hashPassword(password)
 
-        const [id] = await db('users').insert({
+        const [id] = await db.insert({
             email: email,
             salt: salt,
             pw_hash: pw_hash,
-        }).returning('id')
+        })
+            .into('users')
+            .returning('id')
 
         return id
     }
