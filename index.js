@@ -20,6 +20,7 @@ app.use(session(session_options))
 // allow cors
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*')
+    res.setHeader('Content-Type', 'application/json')
     next()
 })
 
@@ -30,6 +31,15 @@ app.listen(port, () => console.log(`App available on http://localhost:${port}`))
 
 
 /*
+
+// allow cors
+app.use((req, res, next) => {
+    res.setHeader('Access-Control-Allow-Origin', '*')
+    next()
+})
+
+
+
 const RedisStore = connectRedis(session)
 const redisClient = redis.createClient({
     url: process.env.REDIS_URL
