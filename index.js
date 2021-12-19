@@ -13,7 +13,7 @@ if (app.get('env') === 'production') {
     app.set('trust proxy', 1) // trust first proxy
     session_options.cookie.secure = true // serve secure cookies
     db.connection.sslmode = 'require'
-    db.connection.ssl = {rejectUnauthorized: false}
+    db.connection.ssl = {rejectUnauthorized: false} // heroku needs this
 }
 
 app.use(session(session_options))
