@@ -11,7 +11,7 @@ class TravelsController {
             console.log("created user: ", id)
         } catch (e) {
             console.log(e)
-            res.status(500).json("failed to create travel")
+            res.status(500).json("failed to create travel", e)
             console.log("failed to create a travel from request: ", req.body)
         }
     }
