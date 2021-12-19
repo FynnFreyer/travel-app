@@ -12,6 +12,7 @@ app.use(express.json())
 if (process.env.IS_HEROKU) {
     app.set('trust proxy', 1) // trust first proxy
     session_options.cookie.secure = true // serve secure cookies
+    session_options.cookie.domain = 'https://htw-travel-app.herokuapp.com/'
 }
 
 app.use(session(session_options))

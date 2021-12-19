@@ -25,8 +25,8 @@ class UsersController {
             const legit = await usersService.checkCredentials(email, password)
             if (legit) {
                 //console.log(req.session)
-                req.session.cookie.id = crypto.randomBytes(2048).toString('hex')
-                req.session.cookie.email = email
+                req.session.clientId = crypto.randomBytes(2048).toString('hex')
+                req.session.email = email
                 res.status(200).json()
                 console.log("authenticated user: ", email)
             } else {
