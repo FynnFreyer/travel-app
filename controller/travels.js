@@ -26,23 +26,15 @@ class TravelsController {
 
     async updateTravel(req, res) {
         console.log("received request: ", req.body)
+        let travel_id = req.params.travel_id
         try {
-            let id = -1;
-            if (req.body.hasAttribute('name')) {
-                const {name} = req.body
-                id = travelsService.getTravelID(name)
-            } else if (req.body.hasAttribute('id')) {
-                id = req.body.id
-            } else {
-                throw new Error('malformed request')
-            }
             for (const key in req.body) {
                 if (!['name', 'start', 'end', 'destination'].includes(key)) {
                     console.log('warning, skipping update of illegal key: ', key)
                     continue
                 }
 
-                await travelsService.updateTravel(id, key, req.body[key])
+                await travelsService.updateTravel(travel_id, key, req.body[key])
             }
         } catch (e) {
             console.log(e)
@@ -63,10 +55,23 @@ class TravelsController {
             // TODO remove error
             res.status(500).json(`failed to get travels ${e}`)
             console.log("failed to update a travel from request: ", req.body)
-
         }
-
     }
+
+    async deleteTravel(req, res) {
+        console.log("received request: ", req.body)
+        let travel_id = req.params.travel_id
+        try {
+            await travelsService.deleteTravel(travel_id)
+            res.status(200).json(travel_id)
+        } catch (e) {
+            console.log(e)
+            // TODO remove error
+            res.status(500).json(`failed to delete travel ${e}`)
+            console.log("failed to delete a travel from request: ", req.body)
+        }
+    }
+
 }
 
 module.exports = new TravelsController()

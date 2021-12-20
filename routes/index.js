@@ -21,6 +21,6 @@ router.delete('/users', require_auth, usersController.createUser)
 router.post('/travels', require_auth, travelsController.createTravel)
 router.get('/travels', require_auth, travelsController.getTravels)
 router.put('/travels/:travel_id', require_auth, travelsController.updateTravel)
-router.delete('/travels/:travel_id', require_auth, travelsController.updateTravel)
+router.delete('/travels/:travel_id', require_auth, travelsController.deleteTravel)
 
 module.exports = router;

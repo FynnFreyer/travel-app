@@ -38,6 +38,13 @@ class TravelsService {
         return id
     }
 
+    async deleteTravel(travel_id) {
+        return db
+            .delete('id')
+            .from('travels')
+            .where('id', travel_id);
+    }
+
     async getTravelID(name) {
         return await db
             .select('id')
