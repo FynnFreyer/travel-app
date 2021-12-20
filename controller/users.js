@@ -27,6 +27,7 @@ class UsersController {
                 //console.log(req.session)
                 req.session.clientId = crypto.randomBytes(2048).toString('hex')
                 req.session.email = email
+                req.session.user_id = await usersService.getUserID(email)
                 res.status(200).json()
                 console.log("authenticated user: ", email)
             } else {

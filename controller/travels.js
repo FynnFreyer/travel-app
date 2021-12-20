@@ -27,11 +27,12 @@ class TravelsController {
     async updateTravel(req, res) {
         console.log("received request: ", req.body)
         try {
+            let id = -1;
             if (req.body.hasAttribute('name')) {
                 const {name} = req.body
-                const id = travelsService.getTravelID(name)
+                id = travelsService.getTravelID(name)
             } else if (req.body.hasAttribute('id')) {
-                const {id} = req.body
+                id = req.body.id
             } else {
                 throw new Error('malformed request')
             }
@@ -41,16 +42,30 @@ class TravelsController {
                     continue
                 }
 
-                travelsService.updateTravel(id, key, req.body[key])
+                await travelsService.updateTravel(id, key, req.body[key])
             }
-
-            const {id} = req.body
         } catch (e) {
             console.log(e)
             // TODO remove error
             res.status(500).json(`failed to update travel ${e}`)
             console.log("failed to update a travel from request: ", req.body)
         }
+    }
+
+    async getTravels(req, res) {
+        console.log("received request: ", req.body)
+        try {
+            const travels = await travelsService.getTravels(req.session.user_id)
+            res.status(200).json(travels)
+            console.log("returned travels: ", travels)
+        } catch (e) {
+            console.log(e)
+            // TODO remove error
+            res.status(500).json(`failed to get travels ${e}`)
+            console.log("failed to update a travel from request: ", req.body)
+
+        }
+
     }
 }
 

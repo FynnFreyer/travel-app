@@ -49,6 +49,39 @@ class TravelsService {
                 return id
             })
     }
+
+    async getTravels(user_id) {
+        let travel_ids = await db
+            .select('travel_id')
+            .from('travels_made_by')
+            .where('user_id', user_id)
+            .returning('travel_id')
+            .then((travel_id_results) => {
+                let travel_ids = []
+                for (const index in travel_id_results) {
+                    travel_ids.push(travel_id_results[index].travel_id)
+                }
+                return travel_ids
+            })
+
+        let travels = []
+
+        for (let i = 0; i < travel_ids.length; i++) {
+            let travel_id = travel_ids[i]
+            let travel = await db
+                .select('*')
+                .from('travels')
+                .where('id', travel_id)
+                .then((travel_results) => {
+                    let travel_result = travel_results[0]
+                    return travel_result
+                })
+
+            travels.push(travel)
+        }
+
+        return travels
+    }
 }
 
 module.exports = new TravelsService()

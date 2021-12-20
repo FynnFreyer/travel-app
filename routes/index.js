@@ -19,6 +19,6 @@ router.post('/users', usersController.createUser)
 
 router.post('/travels', require_auth, travelsController.createTravel)
 router.put('/travels', require_auth, travelsController.updateTravel)
-//router.get('/travels', require_auth, travelsController.getTravels)
+router.get('/travels', require_auth, travelsController.getTravels)
 
 module.exports = router;
