@@ -17,6 +17,7 @@ session_options = {
     saveUninitialized: false,
     resave: false,
     rolling: true, // reset expiration countdown on every request
+    name: 'session_id',
     cookie: {
         secure: false, // gets set true later if on heroku
         httpOnly: true,

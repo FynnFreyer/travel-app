@@ -1,26 +1,26 @@
 const express = require('express');
+
 const usersController = require('../controller/users')
 const travelsController = require('../controller/travels')
 
-const require_auth = (req, res, next) => {
-    if (!req.session || !req.session.clientId) {
-        const err = new Error('Unauthorized')
-        err.statusCode = 401
-        next(err)
-    }
-    next()
-}
+const authenticate = require('../middleware/authenticate')
+const propagateErrors = require('../middleware/logging')
+
 
 const router = express.Router();
 
 router.post('/login', usersController.login)
+//router.delete('/login', usersController.logout)
 
 router.post('/users', usersController.createUser)
-router.delete('/users', require_auth, usersController.createUser)
+//router.put('/users', authenticate, usersController.updateUser)
+//router.delete('/users', authenticate, usersController.deleteUser)
 
-router.post('/travels', require_auth, travelsController.createTravel)
-router.get('/travels', require_auth, travelsController.getTravels)
-router.put('/travels/:travel_id', require_auth, travelsController.updateTravel)
-router.delete('/travels/:travel_id', require_auth, travelsController.deleteTravel)
+router.post('/travels', authenticate, travelsController.createTravel)
+router.get('/travels', authenticate, travelsController.getTravels)
+router.put('/travels/:travel_id', authenticate, travelsController.updateTravel)
+router.delete('/travels/:travel_id', authenticate, travelsController.deleteTravel)
+
+router.use(propagateErrors)
 
 module.exports = router;

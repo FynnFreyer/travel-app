@@ -1,11 +1,10 @@
 const travelsService = require('../service/travels')
 const usersService = require('../service/users')
-const  respondWithErrorIfNotProd = require('../utils/logging')
+const  respondWithErrorIfNotProd = require('../middleware/logging')
 // TODO error handling and req validation?
 
 class TravelsController {
     async createTravel(req, res) {
-        console.log("received request: ", req.body)
         try {
             const {name, start, end, destination} = req.body
             const user_id = await usersService.getUserID(req.session.email)
@@ -15,57 +14,44 @@ class TravelsController {
                 res.status(201).json({"travel_id": travel_id, "user_id": user_id})
                 console.log("created travel: ", travel_id)
             } else {
-                throw new Error(`from request: ${req.body}`)
+                // TODO clean up the created travel?
+                res.status(500).json('Failed to associate user and travel')
             }
         } catch (e) {
-            console.log(e)
-            respondWithErrorIfNotProd(res, e)
-            console.log("failed to create a travel from request: ", req.body)
+            res.status(400).json('Bad request')
         }
     }
 
     async updateTravel(req, res) {
-        console.log("received request: ", req.body)
         let travel_id = req.params.travel_id
         try {
             for (const key in req.body) {
                 if (!['name', 'start', 'end', 'destination'].includes(key)) {
-                    console.log('warning, skipping update of illegal key: ', key)
                     continue
                 }
-
                 await travelsService.updateTravel(travel_id, key, req.body[key])
             }
         } catch (e) {
-            console.log(e)
-            respondWithErrorIfNotProd(res, e)
-            console.log("failed to update a travel from request: ", req.body)
+            res.status(400).json('Bad request')
         }
     }
 
     async getTravels(req, res) {
-        console.log("received request: ", req.body)
         try {
             const travels = await travelsService.getTravels(req.session.user_id)
             res.status(200).json(travels)
-            console.log("returned travels: ", travels)
         } catch (e) {
-            console.log(e)
-            respondWithErrorIfNotProd(res, e)
-            console.log("failed to update a travel from request: ", req.body)
+            res.status(400).json('Bad request')
         }
     }
 
     async deleteTravel(req, res) {
-        console.log("received request: ", req.body)
         let travel_id = req.params.travel_id
         try {
             await travelsService.deleteTravel(travel_id)
-            res.status(200).json(travel_id)
+            res.status(200).json('OK')
         } catch (e) {
-            console.log(e)
-            respondWithErrorIfNotProd(res, e)
-            console.log("failed to delete a travel from request: ", req.body)
+            res.status(400).json('Bad request')
         }
     }
 }
