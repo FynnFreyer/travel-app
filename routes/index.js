@@ -4,7 +4,7 @@ const usersController = require('../controller/users')
 const travelsController = require('../controller/travels')
 
 const authenticate = require('../middleware/authenticate')
-const propagateErrors = require('../middleware/logging')
+const logging = require('../middleware/logging')
 
 
 const router = express.Router();
@@ -22,6 +22,6 @@ router.get('/travels', authenticate, travelsController.getTravels)
 router.put('/travels/:travel_id', authenticate, travelsController.updateTravel)
 router.delete('/travels/:travel_id', authenticate, travelsController.deleteTravel)
 
-router.use(propagateErrors)
+router.use(logging)
 
 module.exports = router;
