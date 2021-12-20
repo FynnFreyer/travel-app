@@ -1,11 +1,17 @@
 # travel-app
 
-Das Backend für eine Übung im Kurs Webtechnologien bei Knut Hühne an der HTW-Berlin
+Das Backend für [eine Übung](https://github.com/FynnFreyer/webtech) im Kurs Webtechnologien 
+bei [Knut Hühne](https://github.com/k-nut/) an der HTW-Berlin
 
-Kooperation zwischen [Younes Abdelwadoud](https://github.com/Lechiffre2110) und [Fynn Freyer](https://github.com/FynnFreyer).
+Kooperation zwischen [Younes Abdelwadoud](https://github.com/Lechiffre2110) 
+und [Fynn Freyer](https://github.com/FynnFreyer).
 
-Dieses Projekt wird auf [Heroku](https://htw-travel-app.herokuapp.com) gehostet, ist aber auch durch Redirects über [Netlify](https://htw-berlin-webtech-freyer-abdelwadoud.netlify.app/) zu erreichen.
+# Nutzung
 
-Hier wird nur eine API zur Verfügung gestellt, weswegen ein einfaches Aufrufen der URL zu Fehlern führen wird.
+Dieses Projekt wird auf [Heroku](https://htw-travel-app.herokuapp.com) gehostet, 
+ist aber auch mittels Redirects über [Netlify](https://htw-berlin-webtech-freyer-abdelwadoud.netlify.app/) erreichbar.
 
-Für Details zur Nutzung kann die Datei `openapi.yaml` referenziert werden.
+Hier wird nur eine API zur Verfügung gestellt, 
+weswegen ein einfaches Aufrufen der URL zu Fehlern führen wird.
+
+Für Details zu verfügbaren Endpunkten kann die Datei `openapi.yaml` referenziert werden.
