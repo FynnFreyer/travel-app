@@ -1,5 +1,7 @@
 const usersService = require('../service/users')
 const crypto = require("crypto");
+const  respondWithErrorIfNotProd = require('../utils/logging')
+
 // TODO error handling and req validation?
 
 class UsersController {
@@ -12,8 +14,7 @@ class UsersController {
             console.log("created user: ", id)
         } catch (e) {
             console.log(e)
-            // TODO remove error
-            res.status(500).json(`failed to create user ${e}`)
+            respondWithErrorIfNotProd(res, e)
             console.log("failed to create a user from request: ", req.body)
         }
     }
@@ -35,8 +36,7 @@ class UsersController {
             }
         } catch (e) {
             console.log(e)
-            // TODO remove error
-            res.status(500).json(`failed to authenticate user ${e}`)
+            respondWithErrorIfNotProd(res, e)
             console.log("failed to authenticate a user from request: ", req.body)
         }
     }

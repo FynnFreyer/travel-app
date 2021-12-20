@@ -8,27 +8,16 @@ const app = express()
 
 app.use(express.json())
 
-if (process.env.IS_HEROKU) {
+if (process.env.NODE_ENV === 'production') {
     app.set('trust proxy', 1) // trust first proxy
-    session_options.cookie.secure = true // serve secure cookies
-    session_options.cookie.domain = 'htw-travel-app.herokuapp.com'
 }
 
 app.use(session(session_options))
-
-// allow cors
-app.use((req, res, next) => {
-    res.setHeader('Access-Control-Allow-Origin', '*')
-    res.setHeader('Access-Control-Allow-Headers', '*')
-    res.setHeader('Content-Type', 'application/json')
-    next()
-})
 
 app.use(router)
 
 let port = process.env.PORT || 8080
 app.listen(port, () => console.log(`App available on http://localhost:${port}`))
-
 
 /*
 
@@ -38,6 +27,12 @@ app.use((req, res, next) => {
     next()
 })
 
+app.use((req, res, next) => {
+    res.setHeader('Access-Control-Allow-Origin', '*')
+    res.setHeader('Access-Control-Allow-Headers', '*')
+    res.setHeader('Content-Type', 'application/json')
+    next()
+})
 
 
 const RedisStore = connectRedis(session)

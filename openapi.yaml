@@ -2,23 +2,63 @@ openapi: 3.0.1
 info:
   title: Travel App
   version: 0.0.1
-  description: 'This is a semester project for the Webtechnologien course at HTW-Berlin. Made by Fynn Freyer and Younes Abdelwadoud'
+  description: |
+  'This is a semester project for the Webtechnologien course at HTW-Berlin. Made by Fynn Freyer and Younes Abdelwadoud'
 servers:
   - url: https://htw-travel-app.herokuapp.com
+tags:
+  - name: login
+    description: Authentication
+  - name: users
+    description: Operations regarding users
+  - name: travels
+    description: Operations regarding travels
 paths:
   /login:
     post:
       summary: Log into the site
       description: Sets a session cookie for authentication
+      tags:
+        - login
       responses:
         "200":
           description: "OK"
         "401":
           description: "Unauthorized"
+  /users:
+    post:
+      summary: Add a new user
+      tags:
+        - users
+      responses:
+        "200":
+          description: "OK"
+          content: {}
+        "500":
+          description: "Server Error"
+          content: {}
+    get:
+      summary: Get information on logged in user
+      tags:
+        - users
+      responses:
+        "200":
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/user"
+        "401":
+          description: "Unauthorized"
+          content: { }
   /travels:
     post:
       summary: Add a new travel
       description: One needs to be authenticated for this
+      tags:
+        - travels
       responses:
         "201":
           description: "CREATED"
@@ -36,10 +76,17 @@ paths:
     get:
       summary: Get all travels of user
       description: One needs to be authenticated for this
+      tags:
+        - travels
       responses:
         "200":
           description: "OK"
-          content: {}
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/travel"
         "401":
           description: "Unauthorized"
           content: {}
@@ -53,6 +100,8 @@ paths:
         description: Numeric ID of the travel to get
     put:
       summary: Update a specific travel
+      tags:
+        - travels
       responses:
         "200":
           description: "OK"
@@ -62,6 +111,8 @@ paths:
           content: {}
     delete:
       summary: Delete a specific travel
+      tags:
+        - travels
       responses:
         "200":
           description: "OK"
@@ -69,23 +120,13 @@ paths:
         "401":
           description: "Unauthorized"
           content: {}
-  /users:
-    post:
-      summary: Add a new user
-      responses:
-        "200":
-          description: "OK"
-          content: {}
-        "500":
-          description: "Server Error"
-          content: {}
-
-# declarations not used yet
 components:
   schemas:
     travel:
       type: object
       properties:
+        id:
+          type: integer
         name:
           type: string
         start:
@@ -93,4 +134,23 @@ components:
         end:
           type: string
         destination:
+          type: string
+        created_at:
+          type: string
+        updated_at:
+          type: string
+    user:
+      type: object
+      properties:
+        id:
+          type: integer
+        email:
+          type: string
+        salt:
+          type: string
+        pw_hash:
+          type: string
+        created_at:
+          type: string
+        updated_at:
           type: string

@@ -1,5 +1,6 @@
 const travelsService = require('../service/travels')
 const usersService = require('../service/users')
+const  respondWithErrorIfNotProd = require('../utils/logging')
 // TODO error handling and req validation?
 
 class TravelsController {
@@ -18,8 +19,7 @@ class TravelsController {
             }
         } catch (e) {
             console.log(e)
-            // TODO remove error
-            res.status(500).json(`failed to create travel ${e}`)
+            respondWithErrorIfNotProd(res, e)
             console.log("failed to create a travel from request: ", req.body)
         }
     }
@@ -38,8 +38,7 @@ class TravelsController {
             }
         } catch (e) {
             console.log(e)
-            // TODO remove error
-            res.status(500).json(`failed to update travel ${e}`)
+            respondWithErrorIfNotProd(res, e)
             console.log("failed to update a travel from request: ", req.body)
         }
     }
@@ -52,8 +51,7 @@ class TravelsController {
             console.log("returned travels: ", travels)
         } catch (e) {
             console.log(e)
-            // TODO remove error
-            res.status(500).json(`failed to get travels ${e}`)
+            respondWithErrorIfNotProd(res, e)
             console.log("failed to update a travel from request: ", req.body)
         }
     }
@@ -66,12 +64,10 @@ class TravelsController {
             res.status(200).json(travel_id)
         } catch (e) {
             console.log(e)
-            // TODO remove error
-            res.status(500).json(`failed to delete travel ${e}`)
+            respondWithErrorIfNotProd(res, e)
             console.log("failed to delete a travel from request: ", req.body)
         }
     }
-
 }
 
 module.exports = new TravelsController()

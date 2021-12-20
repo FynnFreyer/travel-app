@@ -24,4 +24,9 @@ session_options = {
     }
 }
 
+if (process.env.NODE_ENV === 'production') {
+    session_options.cookie.secure = true // serve secure cookies
+    session_options.cookie.domain = 'htw-berlin-webtech-freyer-abdelwadoud.netlify.app'
+}
+
 module.exports = session_options
