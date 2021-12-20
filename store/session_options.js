@@ -18,7 +18,7 @@ session_options = {
     resave: false,
     cookie: {
         secure: false, // gets set true later if on heroku
-        httpOnly: true,
+        httpOnly: false,
         maxAge: 1000 * 60 * 15, // set max age to 1000 * 60 * 15 ms == 15 min
         sameSite: 'none'
     }
