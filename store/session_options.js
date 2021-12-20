@@ -19,7 +19,8 @@ session_options = {
     cookie: {
         secure: false, // gets set true later if on heroku
         httpOnly: true,
-        maxAge: 1000 * 60 * 15 // set max age to 1000 * 60 * 15 ms == 15 min
+        maxAge: 1000 * 60 * 15, // set max age to 1000 * 60 * 15 ms == 15 min
+        sameSite: 'none'
     }
 }
 
