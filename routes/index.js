@@ -13,6 +13,7 @@ router.post('/login', usersController.login)
 //router.delete('/login', usersController.logout)
 
 router.post('/users', usersController.createUser)
+//router.get('/users', usersController.readUser)
 //router.put('/users', authenticate, usersController.updateUser)
 //router.delete('/users', authenticate, usersController.deleteUser)
 
