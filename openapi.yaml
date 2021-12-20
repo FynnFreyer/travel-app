@@ -44,6 +44,13 @@ paths:
           description: "Unauthorized"
           content: {}
   /travels/{travel_id}:
+    parameters:
+      - in: path
+        name: travel_id
+        schema:
+          type: integer
+        required: true
+        description: Numeric ID of the travel to get
     put:
       summary: Update a specific travel
       responses:
@@ -65,11 +72,25 @@ paths:
   /users:
     post:
       summary: Add a new user
+      responses:
+        "200":
+          description: "OK"
+          content: {}
+        "500":
+          description: "Server Error"
+          content: {}
 
+# declarations not used yet
 components:
   schemas:
     travel:
       type: object
-      items:
-        allOf: ["name", "start", "end", "destination"]
-
+      properties:
+        name:
+          type: string
+        start:
+          type: string
+        end:
+          type: string
+        destination:
+          type: string
