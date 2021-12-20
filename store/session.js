@@ -16,9 +16,10 @@ session_options = {
     secret: process.env.SESSION_SECRET,
     saveUninitialized: false,
     resave: false,
+    rolling: true, // reset expiration countdown on every request
     cookie: {
         secure: false, // gets set true later if on heroku
-        httpOnly: false,
+        httpOnly: true,
         maxAge: 1000 * 60 * 15, // set max age to 1000 * 60 * 15 ms == 15 min
         sameSite: 'none'
     }
@@ -29,4 +30,4 @@ if (process.env.NODE_ENV === 'production') {
     session_options.cookie.domain = 'htw-berlin-webtech-freyer-abdelwadoud.netlify.app'
 }
 
-module.exports = session_options
+module.exports = session(session_options)

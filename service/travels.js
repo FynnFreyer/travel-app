@@ -45,18 +45,6 @@ class TravelsService {
             .where('id', travel_id);
     }
 
-    async getTravelID(name) {
-        return await db
-            .select('id')
-            .from('travels')
-            .where('name', name)
-            .then((travels) => {
-                let travel = travels[0]
-                const {id} = travel
-                return id
-            })
-    }
-
     async getTravels(user_id) {
         let travel_ids = await db
             .select('travel_id')

@@ -4,7 +4,7 @@ const travelsController = require('../controller/travels')
 
 const require_auth = (req, res, next) => {
     if (!req.session || !req.session.clientId) {
-        const err = new Error('not authorized')
+        const err = new Error('Unauthorized')
         err.statusCode = 401
         next(err)
     }
