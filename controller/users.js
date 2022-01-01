@@ -31,6 +31,11 @@ class UsersController {
             res.status(400).json('Bad request')
         }
     }
+
+    async logout(req, res) {
+        req.session.destroy()
+        res.status(200).json('OK')
+    }
 }
 
 module.exports = new UsersController()

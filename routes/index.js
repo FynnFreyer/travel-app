@@ -5,12 +5,13 @@ const travelsController = require('../controller/travels')
 
 const authenticate = require('../middleware/authenticate')
 const logging = require('../middleware/logging')
-
+const add_headers = require('../middleware/headers')
 
 const router = express.Router();
+router.use(add_headers)
 
 router.post('/login', usersController.login)
-//router.delete('/login', usersController.logout)
+router.delete('/login', authenticate, usersController.logout)
 
 router.post('/users', usersController.createUser)
 //router.get('/users', usersController.readUser)
