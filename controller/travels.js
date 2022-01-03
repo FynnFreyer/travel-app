@@ -23,7 +23,8 @@ class TravelsController {
     }
 
     async updateTravel(req, res) {
-        let travel_id = req.params.travel_id
+        let travel_id_string = req.params.travel_id
+        let travel_id = parseInt(travel_id_string, 10)
         let user_id = req.session.user_id
         try {
             let travel_ids = await travelsService.getTravelIDsOfUser(user_id)
@@ -52,7 +53,8 @@ class TravelsController {
     }
 
     async deleteTravel(req, res) {
-        let travel_id = req.params.travel_id
+        let travel_id_string = req.params.travel_id
+        let travel_id = parseInt(travel_id_string, 10)
         let user_id = req.session.user_id
         try {
             let travel_ids = await travelsService.getTravelIDsOfUser(user_id)
