@@ -45,7 +45,7 @@ class TravelsService {
             .where('id', travel_id);
     }
 
-    async getTravels(user_id) {
+    async getTravelIDsOfUser(user_id) {
         let travel_ids = await db
             .select('travel_id')
             .from('travels_made_by')
@@ -58,6 +58,12 @@ class TravelsService {
                 }
                 return travel_ids
             })
+
+        return travel_ids
+    }
+
+    async getAllUserTravels(user_id) {
+        let travel_ids = await this.getTravelIDsOfUser(user_id)
 
         let travels = []
 

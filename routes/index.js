@@ -19,7 +19,7 @@ router.post('/users', usersController.createUser)
 //router.delete('/users', authenticate, usersController.deleteUser)
 
 router.post('/travels', authenticate, travelsController.createTravel)
-router.get('/travels', authenticate, travelsController.getTravels)
+router.get('/travels', authenticate, travelsController.getAllUserTravels)
 router.put('/travels/:travel_id', authenticate, travelsController.updateTravel)
 router.delete('/travels/:travel_id', authenticate, travelsController.deleteTravel)
 
