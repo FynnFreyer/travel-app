@@ -2,8 +2,8 @@ openapi: 3.0.1
 info:
   title: Travel App
   version: 0.0.1
-  description: |
-  'This is a semester project for the Webtechnologien course at HTW-Berlin. Made by Fynn Freyer and Younes Abdelwadoud'
+  description: 'This is a semester project for the Webtechnologien course at HTW-Berlin. 
+  Made by Fynn Freyer and Younes Abdelwadoud'
 servers:
   - url: https://htw-travel-app.herokuapp.com
 tags:
@@ -52,7 +52,23 @@ paths:
                   $ref: "#/components/schemas/user"
         "401":
           description: "Unauthorized"
-          content: { }
+  /users/{verification_token}:
+    parameters:
+      - in: path
+        name: verification_token
+        schema:
+          type: string
+        required: true
+        description: Verification token
+    get:
+      summary: Verify your account information
+      tags:
+        - users
+      responses:
+        "200":
+          description: "OK"
+        "404":
+          description: "Not Found"
   /travels:
     post:
       summary: Add a new travel
