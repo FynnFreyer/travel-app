@@ -1,3 +1,3 @@
 const usersService = require('../service/users')
 
-module.exports = usersService.cleanUpOldUnverifiedUsers()
+module.exports = usersService.cleanUpOldUnverifiedUsers
