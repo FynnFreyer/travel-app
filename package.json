@@ -1,5 +1,5 @@
 {
-  "name": "backend",
+  "name": "travel-app",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -19,6 +19,8 @@
     "express": "^4.17.2",
     "express-session": "^1.17.2",
     "knex": "^0.95.14",
+    "node-cron": "^3.0.0",
+    "nodemailer": "^6.7.2",
     "pbkdf2": "^3.1.2",
     "pg": "^8.7.1",
     "redis": "^3.1.2"
