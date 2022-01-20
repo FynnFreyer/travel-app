@@ -86,7 +86,7 @@ class UsersService {
 
     async cleanUpOldUnverifiedUsers() {
         return db('users')
-            .whereRaw('created_at >= now() - interval \'1 week\' and not verified')
+            .whereRaw('created_at <= now() - interval \'1 week\' and not verified')
             .del();
     }
 }
