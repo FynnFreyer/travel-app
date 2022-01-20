@@ -40,7 +40,7 @@ class UsersController {
             if (legit) {
                 //console.log(req.session)
                 let user_id = await usersService.getUserID(email)
-                let verified = await usersService.getVerifiedStatus()
+                let verified = await usersService.getVerifiedStatus(user_id)
 
                 req.session.clientId = crypto.randomBytes(2048).toString('hex')
                 req.session.email = email
