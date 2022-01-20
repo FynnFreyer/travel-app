@@ -21,6 +21,7 @@ router.get('/users/:verification_token', usersController.verifyUser)
 
 router.post('/travels', authenticate, travelsController.createTravel)
 router.get('/travels', authenticate, travelsController.getAllUserTravels)
+router.post('/travels/:travel_id', authenticate, travelsController.shareTravel)
 router.put('/travels/:travel_id', authenticate, travelsController.updateTravel)
 router.delete('/travels/:travel_id', authenticate, travelsController.deleteTravel)
 
