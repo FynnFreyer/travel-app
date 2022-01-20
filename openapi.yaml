@@ -114,6 +114,17 @@ paths:
           type: integer
         required: true
         description: Numeric ID of the travel to get
+    post:
+      summary: Give access to a specific travel to another user
+      tags:
+        - travels
+      responses:
+        "200":
+          description: "OK"
+          content: {}
+        "401":
+          description: "Unauthorized"
+          content: {}
     put:
       summary: Update a specific travel
       tags:
