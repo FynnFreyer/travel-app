@@ -14,6 +14,7 @@ function sendVerificationMail(toAddress, verificationToken) {
         from: `"Travel App" <${process.env.SMTP_USER}>`,
         to: toAddress,
         subject: 'Please verify your email address',
+        // TODO hard coding the url is not great
         html: `<p>Click <a href="https://htw-berlin-webtech-freyer-abdelwadoud.netlify.app/api/users/${verificationToken}">here</a> to verify your account</p>`
     })
 }
