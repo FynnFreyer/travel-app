@@ -22,6 +22,29 @@ class TravelsController {
         }
     }
 
+    async shareTravel(req, res) {
+        let travel_id_string = req.params.travel_id
+        let travel_id = parseInt(travel_id_string, 10)
+        let user_id = req.session.user_id
+        try {
+            let travel_ids = await travelsService.getTravelIDsOfUser(user_id)
+            const {email} = req.body
+            let shared_user = usersService.getUserID(email)
+            if (travel_ids.includes(travel_id)) {
+                const success = await travelsService.associateTravel(shared_user, travel_id)
+                if (success) {
+                    res.status(200).json('OK')
+                } else {
+                    res.status(400).json('Bad request')
+                }
+            } else {
+                res.status(401).json('Unauthorized')
+            }
+        } catch (e) {
+            res.status(400).json('Bad request')
+        }
+    }
+
     async updateTravel(req, res) {
         let travel_id_string = req.params.travel_id
         let travel_id = parseInt(travel_id_string, 10)
