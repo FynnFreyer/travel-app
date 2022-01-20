@@ -1,6 +1,6 @@
 exports.up = function (knex) {
     return knex.schema.alterTable('users', table => {
-        table.string('verification_token').notNullable()
+        table.string('verification_token').notNullable().unique()
         table.boolean('verified').notNullable().defaultTo(false)
     })
 }
