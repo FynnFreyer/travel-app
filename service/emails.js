@@ -7,11 +7,15 @@ let transport = nodemailer.createTransport({
         user: process.env.SMTP_USER,
         pass: process.env.SMTP_PASS
     },
-    secure: true
 })
 
-function sendmail(data) {
-    transport.sendMail(data)
+function sendVerificationMail(toAddress, verificationToken) {
+    transport.sendMail({
+        from: `"Travel App" <${process.env.SMTP_USER}>`,
+        to: toAddress,
+        subject: 'Please verify your email address',
+        html: `<p>Click <a href="https://htw-berlin-webtech-freyer-abdelwadoud.netlify.app/api/users/${verificationToken}">here</a> to verify your account</p>`
+    })
 }
 
-module.exports = sendmail
+module.exports = sendVerificationMail
