@@ -15,8 +15,8 @@ class UsersController {
                 throw new TypeError('not a valid email address')
             }
             let token = crypto.randomBytes(64).toString('base64url').slice(0, 64)
-            sendVerificationMail(email, token)
             const id = await usersService.createUser(email, password, token)
+            sendVerificationMail(email, token)
             res.status(201).json(id)
         } catch (e) {
             res.status(400).json('Bad request')
