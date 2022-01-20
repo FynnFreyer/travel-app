@@ -11,7 +11,6 @@ const keylen = 1024
 const digest = 'SHA256'
 
 class UsersService {
-
     async createUser(email, password, verification_token) {
         const {salt, pw_hash} = this.hashPassword(password)
 
@@ -54,7 +53,7 @@ class UsersService {
                 let user = users[0]
                 const {salt, pw_hash} = user
                 return this.isPasswordCorrect(pw_hash, salt, password)
-            })
+        })
     }
 
     isPasswordCorrect(pw_hash, salt, password) {
@@ -70,7 +69,7 @@ class UsersService {
                 let user = users[0]
                 const {id} = user
                 return id
-            })
+        })
     }
 
     async getVerifiedStatus(id) {
@@ -82,7 +81,13 @@ class UsersService {
                 let user = users[0]
                 const {verified} = user
                 return verified
-            })
+        })
+    }
+
+    async cleanUpOldUnverifiedUsers() {
+        return db('users')
+            .whereRaw('created_at >= now() - interval \'1 week\' and not verified')
+            .del();
     }
 }
 
