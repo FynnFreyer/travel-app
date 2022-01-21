@@ -29,7 +29,7 @@ class TravelsController {
         try {
             let travel_ids = await travelsService.getTravelIDsOfUser(user_id)
             const {email} = req.body
-            let shared_user = usersService.getUserID(email)
+            let shared_user = await usersService.getUserID(email)
             if (travel_ids.includes(travel_id)) {
                 const success = await travelsService.associateTravel(shared_user, travel_id)
                 if (success) {
@@ -58,6 +58,7 @@ class TravelsController {
                     }
                     await travelsService.updateTravel(travel_id, key, req.body[key])
                 }
+                res.status(200).json('OK')
             } else {
                 res.status(401).json('Unauthorized')
             }
