@@ -27,7 +27,7 @@ class UsersController {
         try {
             await usersService.verifyUser(req.params.verification_token)
             // TODO URL should not be hardcoded
-            res.redirect(301, 'https://htw-berlin-webtech-freyer-abdelwadoud.netlify.app/overview.html')
+            res.redirect(301, 'https://htw-berlin-webtech-freyer-abdelwadoud.netlify.app/registered.html')
         } catch (e) {
             res.status(400).json('Bad request')
         }
